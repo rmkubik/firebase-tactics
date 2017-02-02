@@ -3,10 +3,10 @@ var Tactics = Tactics || {};
 Tactics.TiledState = function () {
     "use strict";
     Phaser.State.call(this);
-    
+
     this.prefab_classes = {
         "unit": Tactics.Unit.prototype.constructor,
-        "command_item": Tactics.MenuItem.prototype.constructor,
+        "command_item": Tactics.CommandItem.prototype.constructor,
         "menu": Tactics.Menu.prototype.constructor
     };
 };
@@ -18,15 +18,15 @@ Tactics.TiledState.prototype.init = function (level_data) {
     "use strict";
     var tileset_index;
     this.level_data = level_data;
-    
+
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
-    
+
     // start physics system
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 0;
-    
+
     this.map = this.game.add.tilemap(level_data.map.key);
     tileset_index = 0;
     this.map.tilesets.forEach(function (tileset) {
@@ -38,7 +38,7 @@ Tactics.TiledState.prototype.init = function (level_data) {
 Tactics.TiledState.prototype.create = function () {
     "use strict";
     var group_name, object_layer, collision_tiles, world_grid, tile_dimensions, prefab_name;
-    
+
     this.layers = {};
     this.map.layers.forEach(function (layer) {
         this.layers[layer.name] = this.map.createLayer(layer.name);
@@ -47,12 +47,12 @@ Tactics.TiledState.prototype.create = function () {
         }
     }, this);
     this.layers[this.map.layer.name].resizeWorld();
-    
+
     this.groups = {};
     this.level_data.groups.forEach(function (group_name) {
         this.groups[group_name] = this.game.add.group();
     }, this);
-    
+
     this.prefabs = {};
     for (object_layer in this.map.objects) {
         if (this.map.objects.hasOwnProperty(object_layer)) {

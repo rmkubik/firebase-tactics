@@ -4,8 +4,8 @@ Tactics.MenuItem = function (game_state, name, position, properties) {
     "use strict";
     Tactics.TextPrefab.call(this, game_state, name, position, properties);
     this.anchor.setTo(0);
-    
-    this.inpuEnabled = true;
+
+    this.inputEnabled = true;
     this.events.onInputDown.add(this.select, this);
 };
 

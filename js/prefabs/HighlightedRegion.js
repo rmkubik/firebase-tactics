@@ -5,7 +5,7 @@ Tactics.HighlightedRegion = function (game_state, name, position, properties) {
   Tactics.Prefab.call(this, game_state, name, position, properties);
 
   this.alpha = 0.5;
-  this.inpuEnabled = true;
+  this.inputEnabled = true;
   this.events.onInputDown.add(this.select, this);
 }
 
